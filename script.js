@@ -28,4 +28,29 @@ function addBookToLibrary(bookObject) {
 addBookToLibrary(theHobbit);
 addBookToLibrary(cosmos);
 
-console.log(myLibrary);
+const tableBody = document.querySelector('tbody');
+
+function displayBookList(bookList) {
+    bookList.forEach(element => {
+        const row = document.createElement('tr');
+        tableBody.appendChild(row);
+
+        const tableData = document.createElement('td');
+        row.appendChild(tableData);
+        tableData.textContent = element.title;
+
+        const tableData2 = document.createElement('td');
+        row.appendChild(tableData2);
+        tableData2.textContent = element.author;
+
+        const tableData3 = document.createElement('td');
+        row.appendChild(tableData3);
+        tableData3.textContent = element.pages;
+
+        const tableData4 = document.createElement('td');
+        row.appendChild(tableData4);
+        tableData4.textContent = element.iHaveRead;
+    });
+}
+
+displayBookList(myLibrary);
