@@ -34,11 +34,12 @@ function addBookToLibrary(bookObject) {
 const tableBody = document.querySelector('tbody');
 
 function displayBookList(bookList) {
-    
+
     while (tableBody.hasChildNodes()) {
         tableBody.removeChild(tableBody.firstChild);
     }
-
+    
+    let myLibraryIndex = 0;
     bookList.forEach(element => {
         const row = document.createElement('tr');
         tableBody.appendChild(row);
@@ -58,6 +59,17 @@ function displayBookList(bookList) {
         const tableData4 = document.createElement('td');
         row.appendChild(tableData4);
         tableData4.textContent = element.getReadStatus();
+
+        const removeButton = document.createElement('button');
+        removeButton.dataset.index = myLibraryIndex;
+        myLibraryIndex++;
+        removeButton.textContent = 'Remove';
+        row.appendChild(removeButton);
+
+        removeButton.addEventListener('click', (event) => {
+            myLibrary.splice(removeButton.dataset.index, 1);
+            displayBookList(myLibrary);
+        })
     });
 }
 
@@ -72,5 +84,4 @@ submitButton.addEventListener('click', (event) => {
     const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, readStatusInput.value);
     addBookToLibrary(newBook);
     displayBookList(myLibrary);
-    
 })
