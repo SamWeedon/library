@@ -23,8 +23,8 @@ function Book(title, author, pages, iHaveRead) {
         return this.pages;
     }
     this.getReadStatus = function() {
-        return this.iHaveRead;
-    }
+        return this.iHaveRead ? 'Yes':'No';
+    } 
 }
 
 function addBookToLibrary(bookObject) {
@@ -38,7 +38,7 @@ function displayBookList(bookList) {
     while (tableBody.hasChildNodes()) {
         tableBody.removeChild(tableBody.firstChild);
     }
-    
+
     let myLibraryIndex = 0;
     bookList.forEach(element => {
         const row = document.createElement('tr');
@@ -62,7 +62,6 @@ function displayBookList(bookList) {
 
         const removeButton = document.createElement('button');
         removeButton.dataset.index = myLibraryIndex;
-        myLibraryIndex++;
         removeButton.textContent = 'Remove';
         row.appendChild(removeButton);
 
@@ -70,6 +69,16 @@ function displayBookList(bookList) {
             myLibrary.splice(removeButton.dataset.index, 1);
             displayBookList(myLibrary);
         })
+
+        const toggleButton = document.createElement('button');
+        toggleButton.textContent = 'Toggle Read Status';
+        row.appendChild(toggleButton);
+
+        toggleButton.addEventListener('click', () => {
+            element.toggleReadStatus();
+            displayBookList(myLibrary);
+        });
+        myLibraryIndex++;
     });
 }
 
@@ -81,7 +90,11 @@ const submitButton = document.querySelector('.submit-button')
 
 submitButton.addEventListener('click', (event) => {
     event.preventDefault();
-    const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, readStatusInput.value);
+    const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, readStatusInput.checked);
     addBookToLibrary(newBook);
     displayBookList(myLibrary);
 })
+
+Book.prototype.toggleReadStatus = function() {
+    this.iHaveRead = !this.iHaveRead;
+}
