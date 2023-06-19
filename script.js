@@ -1,11 +1,13 @@
 let myLibrary = [];
 
-function Book(title, author, pages, iHaveRead) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.iHaveRead = iHaveRead
-    this.info = function() {
+class Book {
+    constructor(title, author, pages, iHaveRead) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.iHaveRead = iHaveRead;
+    }
+    info() {
         if (iHaveRead) {
             return `${this.title} by ${this.author}, ${this.pages} pages, read`
         }
@@ -13,18 +15,21 @@ function Book(title, author, pages, iHaveRead) {
             return `${this.title} by ${this.author}, ${this.pages} pages, not read yet`
         }
     }
-    this.getTitle = function() {
+    getTitle() {
         return this.title;
     }
-    this.getAuthor = function() {
+    getAuthor() {
         return this.author;
     }
-    this.getPages = function() {
+    getPages() {
         return this.pages;
     }
-    this.getReadStatus = function() {
+    getReadStatus() {
         return this.iHaveRead ? 'Yes':'No';
     } 
+    toggleReadStatus() {
+        this.iHaveRead = !this.iHaveRead;
+    }
 }
 
 function addBookToLibrary(bookObject) {
@@ -94,7 +99,3 @@ submitButton.addEventListener('click', (event) => {
     addBookToLibrary(newBook);
     displayBookList(myLibrary);
 })
-
-Book.prototype.toggleReadStatus = function() {
-    this.iHaveRead = !this.iHaveRead;
-}
