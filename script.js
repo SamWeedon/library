@@ -2,33 +2,33 @@ let myLibrary = [];
 
 class Book {
     constructor(title, author, pages, iHaveRead) {
-        this.title = title;
-        this.author = author;
-        this.pages = pages;
-        this.iHaveRead = iHaveRead;
+        this._title = title;
+        this._author = author;
+        this._pages = pages;
+        this._iHaveRead = iHaveRead;
     }
     info() {
         if (iHaveRead) {
-            return `${this.title} by ${this.author}, ${this.pages} pages, read`
+            return `${this._title} by ${this._author}, ${this._pages} pages, read`
         }
         else {
-            return `${this.title} by ${this.author}, ${this.pages} pages, not read yet`
+            return `${this._title} by ${this._author}, ${this._pages} pages, not read yet`
         }
     }
-    getTitle() {
-        return this.title;
+    get title() {
+        return this._title;
     }
-    getAuthor() {
-        return this.author;
+    get author() {
+        return this._author;
     }
-    getPages() {
-        return this.pages;
+    get pages() {
+        return this._pages;
     }
-    getReadStatus() {
-        return this.iHaveRead ? 'Yes':'No';
+    get readStatus() {
+        return this._iHaveRead ? 'Yes':'No';
     } 
     toggleReadStatus() {
-        this.iHaveRead = !this.iHaveRead;
+        this._iHaveRead = !this._iHaveRead;
     }
 }
 
@@ -51,19 +51,19 @@ function displayBookList(bookList) {
 
         const tableData = document.createElement('td');
         row.appendChild(tableData);
-        tableData.textContent = element.getTitle();
+        tableData.textContent = element.title;
 
         const tableData2 = document.createElement('td');
         row.appendChild(tableData2);
-        tableData2.textContent = element.getAuthor();
+        tableData2.textContent = element.author;
 
         const tableData3 = document.createElement('td');
         row.appendChild(tableData3);
-        tableData3.textContent = element.getPages();
+        tableData3.textContent = element.pages;
 
         const tableData4 = document.createElement('td');
         row.appendChild(tableData4);
-        tableData4.textContent = element.getReadStatus();
+        tableData4.textContent = element.readStatus;
 
         const removeButton = document.createElement('button');
         removeButton.dataset.index = myLibraryIndex;
