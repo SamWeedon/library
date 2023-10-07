@@ -36,13 +36,37 @@ function addBookToLibrary(bookObject) {
     myLibrary.push(bookObject);
 }
 
+const tableHead = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
 
 function displayBookList(bookList) {
 
+    while (tableHead.hasChildNodes()) {
+        tableHead.removeChild(tableHead.firstChild);
+    }
+
     while (tableBody.hasChildNodes()) {
         tableBody.removeChild(tableBody.firstChild);
     }
+
+    const headerRow = document.createElement('tr');
+    tableHead.appendChild(headerRow);
+
+    const title = document.createElement('th');
+    headerRow.appendChild(title);
+    title.textContent = 'Title';
+
+    const author = document.createElement('th');
+    headerRow.appendChild(author);
+    author.textContent = 'Author';
+
+    const pages = document.createElement('th');
+    headerRow.appendChild(pages);
+    pages.textContent = 'Pages';
+
+    const completed = document.createElement('th');
+    headerRow.appendChild(completed);
+    completed.textContent = 'Completed';
 
     let myLibraryIndex = 0;
     bookList.forEach(element => {
