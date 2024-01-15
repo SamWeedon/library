@@ -118,10 +118,15 @@ const submitButton = document.querySelector(".submit-button");
 
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
+  /*
   if (pagesInput.validity.rangeOverflow) {
     pagesError.textContent = "Too large";
   } else if (pagesInput.validity.rangeUnderflow) {
     pagesError.textContent = "Too small";
+
+  }*/
+  if (!pagesInput.checkValidity()) {
+    pagesError.textContent = pagesInput.validationMessage;
   } else {
     pagesError.textContent = "";
 
