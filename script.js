@@ -110,25 +110,55 @@ function displayBookList(bookList) {
 }
 
 const titleInput = document.querySelector("#title");
+const titleError = document.querySelector("#title-error");
 const authorInput = document.querySelector("#author");
+const authorError = document.querySelector("#author-error");
 const pagesInput = document.querySelector("#pages");
 const pagesError = document.querySelector("#pages-error");
 const readStatusInput = document.querySelector("#read-status");
 const submitButton = document.querySelector(".submit-button");
 
+const inputs = [titleInput, authorInput, pagesInput, readStatusInput];
+
+const isInvalid = function (inputElement) {
+  if (!inputElement.checkValidity()) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const printErrors = function () {
+  pagesError.textContent = pagesInput.validationMessage;
+  authorError.textContent = authorInput.validationMessage;
+  titleError.textContent = titleInput.validationMessage;
+
+  /*
+  const span = document.createElement("span");
+  span.textContent = pagesInput.validationMessage;
+  pagesInput.insertAdjacentElement("beforebegin", span);
+  */
+};
+
+/*
+const printError = function (inputElement) {};
+
+inputs.forEach((input) => {
+  input.addEventListener("input", printErrors);
+});
+*/
+
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
-  /*
-  if (pagesInput.validity.rangeOverflow) {
-    pagesError.textContent = "Too large";
-  } else if (pagesInput.validity.rangeUnderflow) {
-    pagesError.textContent = "Too small";
 
-  }*/
-  if (!pagesInput.checkValidity()) {
-    pagesError.textContent = pagesInput.validationMessage;
+  if (
+    isInvalid(pagesInput) ||
+    isInvalid(titleInput) ||
+    isInvalid(authorInput)
+  ) {
+    printErrors();
   } else {
-    pagesError.textContent = "";
+    printErrors();
 
     const newBook = new Book(
       titleInput.value,

@@ -1,18 +1,28 @@
 body {
-    padding: 10px;
+  padding: 10px;
 }
 
-tr, td, th {
-    border: 1px solid black;
-    padding: 5px;
+tr,
+td,
+th {
+  border: 1px solid black;
+  padding: 5px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 table {
-    margin-top: 40px;
+  margin-top: 40px;
+}
+
+input:focus:invalid {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+input:focus:valid {
+  background-color: yellow;
 }
