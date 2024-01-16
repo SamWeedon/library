@@ -117,41 +117,37 @@ const submitButton = document.querySelector(".submit-button");
 
 const inputs = [titleInput, authorInput, pagesInput, readStatusInput];
 
-const isInvalid = function (inputElement) {
-  if (!inputElement.checkValidity()) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-const printErrors = function () {
-  inputs.forEach((input) => {
-    printError(input);
-  });
-};
-
 const printError = function (inputElement) {
+  // print an error for a single input element
   inputElement.nextSibling.remove();
   const errorSpan = document.createElement("span");
   errorSpan.textContent = inputElement.validationMessage;
   inputElement.insertAdjacentElement("afterend", errorSpan);
 };
 
+const printErrors = function () {
+  // prints all input errors
+  inputs.forEach((input) => {
+    printError(input);
+  });
+};
+
+// handle error printing on input
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => printError(e.target));
 });
 
+// when the submit button is clicked, either update the library
+// or print errors depending on whether all of the input is valid
+// or not
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
 
   if (
-    isInvalid(pagesInput) ||
-    isInvalid(titleInput) ||
-    isInvalid(authorInput)
+    pagesInput.checkValidity() &&
+    titleInput.checkValidity() &&
+    authorInput.checkValidity()
   ) {
-    printErrors();
-  } else {
     printErrors();
 
     const newBook = new Book(
@@ -162,5 +158,7 @@ submitButton.addEventListener("click", (event) => {
     );
     addBookToLibrary(newBook);
     displayBookList(myLibrary);
+  } else {
+    printErrors();
   }
 });
