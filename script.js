@@ -110,11 +110,8 @@ function displayBookList(bookList) {
 }
 
 const titleInput = document.querySelector("#title");
-const titleError = document.querySelector("#title-error");
 const authorInput = document.querySelector("#author");
-const authorError = document.querySelector("#author-error");
 const pagesInput = document.querySelector("#pages");
-const pagesError = document.querySelector("#pages-error");
 const readStatusInput = document.querySelector("#read-status");
 const submitButton = document.querySelector(".submit-button");
 
@@ -129,24 +126,21 @@ const isInvalid = function (inputElement) {
 };
 
 const printErrors = function () {
-  pagesError.textContent = pagesInput.validationMessage;
-  authorError.textContent = authorInput.validationMessage;
-  titleError.textContent = titleInput.validationMessage;
-
-  /*
-  const span = document.createElement("span");
-  span.textContent = pagesInput.validationMessage;
-  pagesInput.insertAdjacentElement("beforebegin", span);
-  */
+  inputs.forEach((input) => {
+    printError(input);
+  });
 };
 
-/*
-const printError = function (inputElement) {};
+const printError = function (inputElement) {
+  inputElement.nextSibling.remove();
+  const errorSpan = document.createElement("span");
+  errorSpan.textContent = inputElement.validationMessage;
+  inputElement.insertAdjacentElement("afterend", errorSpan);
+};
 
 inputs.forEach((input) => {
-  input.addEventListener("input", printErrors);
+  input.addEventListener("input", (e) => printError(e.target));
 });
-*/
 
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
